@@ -12,6 +12,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<Transaction>>({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTransactions();
@@ -19,9 +20,17 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
 
   const fetchTransactions = async () => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('You must be logged in to view transactions');
+        return;
+      }
+
       const { data, error } = await supabase
         .from('transactions')
         .select('*')
+        .eq('user_id', user.id)
         .order('date', { ascending: false });
 
       if (error) throw error;
@@ -29,6 +38,8 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
     } catch (error) {
       toast.error('Failed to fetch transactions');
       console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,6 +85,14 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
       console.error('Error:', error);
     }
   };
+
+  if (loading) {
+    return <div className="text-center">Loading transactions...</div>;
+  }
+
+  if (transactions.length === 0) {
+    return <div className="text-center text-gray-600 dark:text-gray-400">No transactions found</div>;
+  }
 
   return (
     <div className="space-y-4">

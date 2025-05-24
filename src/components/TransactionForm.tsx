@@ -21,6 +21,13 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onTransactionA
     }
 
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('You must be logged in to add transactions');
+        return;
+      }
+
       const { error } = await supabase
         .from('transactions')
         .insert([
@@ -29,6 +36,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({ onTransactionA
             type,
             description,
             date,
+            user_id: user.id
           },
         ]);
 

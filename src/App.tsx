@@ -7,10 +7,11 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from './lib/supabase';
 import { useEffect } from 'react';
+import { Session } from '@supabase/supabase-js';
 
 function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -78,4 +79,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
