@@ -37,7 +37,11 @@ export const FinancialNews: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="animate-pulse">Loading news...</div>;
+    return <div className="animate-pulse text-center text-gray-600 dark:text-gray-400">Loading news...</div>;
+  }
+
+  if (news.length === 0) {
+    return <div className="text-center text-gray-600 dark:text-gray-400">No news available</div>;
   }
 
   return (

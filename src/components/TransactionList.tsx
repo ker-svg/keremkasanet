@@ -87,7 +87,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
   };
 
   if (loading) {
-    return <div className="text-center">Loading transactions...</div>;
+    return <div className="text-center text-gray-600 dark:text-gray-400">Loading transactions...</div>;
   }
 
   if (transactions.length === 0) {
@@ -118,14 +118,14 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
                         type="date"
                         value={editForm.date}
                         onChange={(e) => setEditForm({ ...editForm, date: e.target.value })}
-                        className="w-full rounded dark:bg-gray-700"
+                        className="w-full rounded dark:bg-gray-700 dark:text-white"
                       />
                     </td>
                     <td className="px-6 py-4">
                       <select
                         value={editForm.type}
                         onChange={(e) => setEditForm({ ...editForm, type: e.target.value as 'income' | 'expense' })}
-                        className="w-full rounded dark:bg-gray-700"
+                        className="w-full rounded dark:bg-gray-700 dark:text-white"
                       >
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
@@ -134,11 +134,11 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
                     <td className="px-6 py-4">
                       <input
                         type="number"
-                        min="0"
+                        min="0.01"
                         step="0.01"
                         value={editForm.amount}
                         onChange={(e) => setEditForm({ ...editForm, amount: parseFloat(e.target.value) })}
-                        className="w-full rounded dark:bg-gray-700"
+                        className="w-full rounded dark:bg-gray-700 dark:text-white"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -146,7 +146,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ refreshTrigger
                         type="text"
                         value={editForm.description}
                         onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                        className="w-full rounded dark:bg-gray-700"
+                        className="w-full rounded dark:bg-gray-700 dark:text-white"
                       />
                     </td>
                     <td className="px-6 py-4">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { TransactionForm } from './components/TransactionForm';
 import { TransactionList } from './components/TransactionList';
@@ -6,7 +6,6 @@ import { FinancialNews } from './components/FinancialNews';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from './lib/supabase';
-import { useEffect } from 'react';
 import { Session } from '@supabase/supabase-js';
 
 function App() {
